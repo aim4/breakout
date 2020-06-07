@@ -16,10 +16,10 @@ function love.load()
     paddle = Paddle(world)
     ball = Ball(world)
     walls = {
-        Wall(world, 400, 10, 800, 10), -- top
-        Wall(world, 400, 595, 800, 10), -- bottom
-        Wall(world, 5, 300, 10, 600), -- left
-        Wall(world, 795, 300, 10, 600) -- right
+        Wall(world, 400, -6, 800, 10), -- top
+        Wall(world, 400, 606, 800, 10), -- bottom
+        Wall(world, -6, 300, 10, 600), -- left
+        Wall(world, 806, 300, 10, 600) -- right
     }
 
     paused = false
