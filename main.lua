@@ -39,10 +39,6 @@ function love.draw()
     love.graphics.circle('fill', ball_x, ball_y, ball.shape:getRadius())
     love.graphics.polygon('line', paddle.body:getWorldPoints(paddle.shape:getPoints())
     )
-
-    for i, w in ipairs(walls) do
-        w:draw()
-    end
 end
 
 function love.focus(focused)
