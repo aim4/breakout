@@ -13,3 +13,8 @@ function Ball:new(world)
     self.fixture:setRestitution(1)
     self.fixture:setUserData(self)
 end
+
+function Ball:draw()
+    local ball_x, ball_y = ball.body:getWorldCenter()
+    love.graphics.circle('fill', ball_x, ball_y, ball.shape:getRadius())
+end

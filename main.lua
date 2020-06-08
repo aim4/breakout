@@ -10,18 +10,9 @@ function love.load()
     require "paddle"
     require "ball"
     require "wall"
+    require "brick"
 
-    -- Game objects
-    world = love.physics.newWorld(0, 0)
-    paddle = Paddle(world)
-    ball = Ball(world)
-    walls = {
-        Wall(world, 400, -6, 800, 10), -- top
-        Wall(world, 400, 606, 800, 10), -- bottom
-        Wall(world, -6, 300, 10, 600), -- left
-        Wall(world, 806, 300, 10, 600) -- right
-    }
-
+    generateGameObjects()
     paused = false
     key_map = {
         escape = function()
@@ -35,10 +26,11 @@ function love.load()
 end
 
 function love.draw()
-    local ball_x, ball_y = ball.body:getWorldCenter()
-    love.graphics.circle('fill', ball_x, ball_y, ball.shape:getRadius())
-    love.graphics.polygon('line', paddle.body:getWorldPoints(paddle.shape:getPoints())
-    )
+    ball:draw()
+    paddle:draw()
+    for i, b in ipairs(bricks) do
+        b:draw()
+    end
 end
 
 function love.focus(focused)
@@ -58,3 +50,23 @@ function love.update(dt)
         world:update(dt)
     end
 end
+
+function generateGameObjects()
+    world = love.physics.newWorld(0, 0)
+    paddle = Paddle(world)
+    ball = Ball(world)
+    walls = {
+        Wall(world, 400, -6, 800, 10), -- top
+        Wall(world, 400, 606, 800, 10), -- bottom
+        Wall(world, -6, 300, 10, 600), -- left
+        Wall(world, 806, 300, 10, 600) -- right
+    }
+
+    bricks = {
+        Brick(world, 100, 100),
+        Brick(world, 200, 100),
+        Brick(world, 300, 100),
+    }
+end
+
+
