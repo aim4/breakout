@@ -24,6 +24,14 @@ function love.draw()
     for i, b in ipairs(bricks) do
         b:draw()
     end
+
+    local text = "Paused"
+    local f = love.graphics.setNewFont(18)
+    local w = f:getWidth(text)
+    sw, sh = love.graphics.getDimensions()
+    if input.paused then
+        love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
+    end
 end
 
 function love.focus(focused)

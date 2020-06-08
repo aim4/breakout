@@ -11,6 +11,7 @@ function Ball:new(world)
     self.shape = love.physics.newCircleShape(0, 0, 10)
     self.fixture = love.physics.newFixture(self.body, self.shape)
     self.fixture:setRestitution(1)
+    self.fixture:setFriction(0)
     self.fixture:setUserData(self)
 end
 
