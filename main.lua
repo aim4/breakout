@@ -11,18 +11,11 @@ function love.load()
     require "ball"
     require "wall"
     require "brick"
+    input = require "input"
 
+    initializeInput()
     generateGameObjects()
     paused = false
-    key_map = {
-        escape = function()
-            love.event.quit()
-        end,
-        space= function()
-            paused = not paused
-        end
-    }
-
 end
 
 function love.draw()
@@ -34,21 +27,32 @@ function love.draw()
 end
 
 function love.focus(focused)
-    if not focused then
-        paused = true
-    end
+    input.toggle_focus(focused)
 end
 
 function love.keypressed(key)
-    if key_map[key] then
-        key_map[key]()
-    end
+    input.press(key)
+end
+
+function love.keyreleased(key)
+    input.release(key)
 end
 
 function love.update(dt)
-    if not paused then
-        world:update(dt)
+    if input.paused then
+        return
     end
+
+    for _, entity in ipairs(entities) do
+        if entity.update then entity:update(dt) end
+        if type(entity) == "table" then
+            for _, childEntity in ipairs(entity) do
+                if childEntity.update then childEntity:update(dt) end
+            end
+        end
+    end
+
+    world:update(dt)
 end
 
 function generateGameObjects()
@@ -66,6 +70,13 @@ function generateGameObjects()
         Brick(world, 100, 100),
         Brick(world, 200, 100),
         Brick(world, 300, 100),
+    }
+
+    entities = {
+        paddle,
+        ball,
+        walls,
+        bricks
     }
 end
 
