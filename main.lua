@@ -25,13 +25,7 @@ function love.draw()
         b:draw()
     end
 
-    local text = "Paused"
-    local f = love.graphics.setNewFont(18)
-    local w = f:getWidth(text)
-    sw, sh = love.graphics.getDimensions()
-    if input.paused then
-        love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
-    end
+    drawPauseText()
 end
 
 function love.focus(focused)
@@ -88,4 +82,13 @@ function generateGameObjects()
     }
 end
 
+function drawPauseText()
+    local text = "Paused"
+    local f = love.graphics.setNewFont(18)
+    local w = f:getWidth(text)
+    sw, sh = love.graphics.getDimensions()
+    if input.paused then
+        love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
+    end
+end
 
