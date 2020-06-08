@@ -1,9 +1,6 @@
-World = Object:extend()
-
-function World:new()
-    self.world = love.physics.newWorld(0, 100)
-end
-
-function World:update(dt)
-    self.world:update(dt)
+function worldEndContactCallback(fixture_a, fixture_b, contact)
+    local entity_a = fixture_a:getUserData()
+    local entity_b = fixture_b:getUserData()
+    if entity_a.end_contact then entity_a:end_contact() end
+    if entity_b.end_contact then entity_b:end_contact() end
 end

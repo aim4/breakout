@@ -6,7 +6,7 @@ end
 
 function love.load()
     Object = require "classic"
-    -- require "world"
+    require "world"
     require "paddle"
     require "ball"
     require "wall"
@@ -54,11 +54,20 @@ function love.update(dt)
         end
     end
 
+    for i = #bricks, 1, -1 do
+        brick = bricks[i]
+        if brick.health == 0 then
+            table.remove(bricks, i)
+            brick.fixture:destroy()
+        end
+    end
+
     world:update(dt)
 end
 
 function generateGameObjects()
     world = love.physics.newWorld(0, 0)
+    world:setCallbacks(nil, worldEndContactCallback, nil, nil)
     paddle = Paddle(world)
     ball = Ball(world)
     walls = {
