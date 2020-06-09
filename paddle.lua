@@ -27,16 +27,16 @@ function Paddle:draw()
 end
 
 function Paddle:update(dt)
-    if input.left and input.right then
+    if state.button_left and state.button_right then
         return
     end
 
     local x, y = self.body:getPosition()
-    if input.left and x > self.left_bound then
+    if state.button_left and x > self.left_bound then
         self.body:setLinearVelocity(-self.speed, 0)
         -- new_x = math.max(x - self.speed * dt, 108)
         -- self.body:setPosition(new_x, y)
-    elseif input.right then
+    elseif state.button_right then
         self.body:setLinearVelocity(self.speed, 0)
         -- new_x = math.min(x + self.speed * dt, 700)
         -- self.body:setPosition(new_x, y)

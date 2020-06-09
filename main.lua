@@ -11,6 +11,7 @@ function love.load()
     require "ball"
     require "wall"
     require "brick"
+    state = require "state"
     input = require "input"
 
     initializeInput()
@@ -41,7 +42,7 @@ function love.keyreleased(key)
 end
 
 function love.update(dt)
-    if input.paused then
+    if state.game_over or state.stage_cleared or state.paused then
         return
     end
 
@@ -102,7 +103,7 @@ function drawPauseText()
     local f = love.graphics.setNewFont(18)
     local w = f:getWidth(text)
     sw, sh = love.graphics.getDimensions()
-    if input.paused then
+    if state.paused then
         love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
     end
 end

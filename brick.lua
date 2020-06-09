@@ -1,7 +1,7 @@
 Brick = Object:extend()
 
 function Brick:new(world, x, y, w, h)
-    self.health = 2
+    self.health = 3
 
     self.body = love.physics.newBody(world, x, y, 'static')
     self.shape = love.physics.newRectangleShape(w, h)
@@ -10,9 +10,7 @@ function Brick:new(world, x, y, w, h)
 end
 
 function Brick:draw()
-    if self.health == 1 then
-        love.graphics.setColor(1, 1, 0)
-    end
+    love.graphics.setColor(state.palette[self.health] or state.palette[5])
     love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
     love.graphics.reset()
 end
