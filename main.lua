@@ -26,7 +26,13 @@ function love.draw()
         b:draw()
     end
 
-    drawPauseText()
+    if state.paused then
+        drawPauseText()
+    elseif state.game_over then
+        drawGameOverText()
+    elseif state.stage_cleared then
+        drawStateClearedText()
+    end
 end
 
 function love.focus(focused)
@@ -55,6 +61,10 @@ function love.update(dt)
         end
     end
 
+    if #bricks == 0 then
+        state.stage_cleared = true
+    end
+    
     for i = #bricks, 1, -1 do
         brick = bricks[i]
         if brick.health == 0 then
@@ -78,6 +88,11 @@ function generateGameObjects()
         Wall(world, 806, 300, 10, 600) -- right
     }
 
+    -- game over if the bottom wall is touched
+    walls[2].end_contact = function(self)
+        state.game_over = true 
+    end
+
     bricks = {}
 
     local spacing = 10
@@ -100,11 +115,33 @@ end
 
 function drawPauseText()
     local text = "Paused"
+    love.graphics.setColor(state.palette[3])
     local f = love.graphics.setNewFont(18)
     local w = f:getWidth(text)
     sw, sh = love.graphics.getDimensions()
-    if state.paused then
-        love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
-    end
+
+    love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
+    love.graphics.reset()
 end
 
+function drawGameOverText()
+    local text = "Game Over"
+    love.graphics.setColor(state.palette[5])
+    local f = love.graphics.setNewFont(18)
+    local w = f:getWidth(text)
+    sw, sh = love.graphics.getDimensions()
+    
+    love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
+    love.graphics.reset()
+end
+
+function drawStateClearedText()
+    local text = "Stage Cleared"
+    love.graphics.setColor(state.palette[4])
+    local f = love.graphics.setNewFont(18)
+    local w = f:getWidth(text)
+    sw, sh = love.graphics.getDimensions()
+    
+    love.graphics.printf(text, sw/2 - w/2, sh/2, w, "center")
+    love.graphics.reset()
+end
