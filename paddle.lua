@@ -36,7 +36,7 @@ function Paddle:update(dt)
         self.body:setLinearVelocity(-self.speed, 0)
         -- new_x = math.max(x - self.speed * dt, 108)
         -- self.body:setPosition(new_x, y)
-    elseif state.button_right then
+    elseif state.button_right and x < self.right_bound then
         self.body:setLinearVelocity(self.speed, 0)
         -- new_x = math.min(x + self.speed * dt, 700)
         -- self.body:setPosition(new_x, y)
