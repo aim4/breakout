@@ -10,7 +10,11 @@ function Brick:new(world, x, y)
 end
 
 function Brick:draw()
+    if self.health == 1 then
+        love.graphics.setColor(1, 1, 0)
+    end
     love.graphics.polygon('fill', self.body:getWorldPoints(self.shape:getPoints()))
+    love.graphics.reset()
 end
 
 function Brick:end_contact()
