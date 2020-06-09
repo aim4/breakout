@@ -5,4 +5,4 @@ I followed this helpful [tutorial](https://rvagamejams.com/learn2love/pages/02-1
 
 Image Preview:
 
-![alt text](https://github.com/aim4/breakout/breakout_preview.png "Breakout Preview")
+![alt text](https://github.com/aim4/breakout/blob/master/breakout_preview.png "Breakout Preview")
