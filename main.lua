@@ -77,11 +77,17 @@ function generateGameObjects()
         Wall(world, 806, 300, 10, 600) -- right
     }
 
-    bricks = {
-        Brick(world, 100, 100),
-        Brick(world, 200, 100),
-        Brick(world, 300, 100),
-    }
+    bricks = {}
+
+    local spacing = 10
+    local row_width = love.graphics.getDimensions() - 2 * spacing
+    local brick_width = 50
+    local brick_height = 20
+    for i = 0,38 do
+        local x = ((i * (brick_width + spacing)) % row_width) + (brick_width - spacing)
+        local y = (math.floor((i * (brick_width + spacing) / row_width)) * (brick_width - spacing)) + 80
+        bricks[i + 1] = Brick(world, x, y, brick_width, brick_height)
+   end
 
     entities = {
         paddle,
